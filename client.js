@@ -12,13 +12,25 @@ function andGo() {
   `);
 
   // display all peeps
-  people.forEach((obj) => {
-    $('.place-image-here').append(`
+  people.forEach((obj, index) => {
+    let img = $(`
     <div class="image-display">
-    <img src="https://github.com/${obj.githubUsername}.png?size=250" alt="Profile image of ${obj.name}">
+      <img src="https://github.com/${obj.githubUsername}.png?size=250" alt="Profile image of ${obj.name}" id="${index}">
     </div>
     `);
+
+    img.find('img').data('person', obj);
+
+    $('.place-image-here').append(img);
   });
+
+  // add event listener on images
+  $(document).on('click', 'img', imgClicked);
+}
+
+function imgClicked() {
+  console.log($(this));
+  console.log($(this).data('person'));
 }
 
 function randomNumber(min, max) {
