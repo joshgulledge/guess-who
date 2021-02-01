@@ -1,0 +1,12 @@
+body {
+  background-color: aqua;
+}
+
+.place-here {
+  width: 70%;
+  margin: auto;
+}
+
+.image-display {
+  display: inline-block;
+}
