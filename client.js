@@ -1,8 +1,16 @@
 $(document).ready(andGo);
+let selector;
 
 function andGo() {
-  const selector = randomNumber(0, people.length - 1);
+  selector = randomNumber(0, people.length - 1);
 
+  renderData();
+
+  // add event listener on images
+  $(document).on('click', 'img', imgClicked);
+}
+
+function renderData() {
   // prompt for selection
   $('.place-header-here').append(`
     <h1>
@@ -23,14 +31,28 @@ function andGo() {
 
     $('.place-image-here').append(img);
   });
-
-  // add event listener on images
-  $(document).on('click', 'img', imgClicked);
 }
 
 function imgClicked() {
-  console.log($(this));
-  console.log($(this).data('person'));
+  // identify the person
+  const whoAmI = $(this).data('person');
+
+  console.log('whoAmI', whoAmI);
+  console.log(people[selector].name);
+  // see if "this" person matches the
+  // name of the selector person
+
+  if (whoAmI.name === people[selector].name) {
+    alert('You are correct!');
+    $('.place-header-here').empty();
+    $('.place-image-here').empty();
+    // make new selector
+    selector = randomNumber(0, people.length - 1);
+    // render data again
+    renderData();
+  } else {
+    alert('Sorry, incorrect. Try again');
+  }
 }
 
 function randomNumber(min, max) {
